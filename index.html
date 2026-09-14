@@ -1,0 +1,1673 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Music Note 🎵</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #e9edef;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.phone {
+    width: 390px;
+    max-width: 100%;
+    min-height: 100vh;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.20);
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    background: #075e54;
+    color: white;
+    padding: 18px;
+    font-size: 21px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header span {
+    float: right;
+    font-size: 24px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile {
+    padding: 22px 15px;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+.profile img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.profile h2 {
+    margin-top: 10px;
+    color: #222;
+}
+
+.profile p {
+    color: #777;
+    margin-top: 4px;
+}
+
+/* ================= SHARED MESSAGE ================= */
+
+.shared {
+    margin: 15px;
+    padding: 13px;
+    text-align: center;
+    background: #fff3cd;
+    border-radius: 12px;
+    color: #856404;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ================= MUSIC NOTE ================= */
+
+.note {
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background: #e8f5e9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.note-title {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+
+.song {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.song img {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.song-info {
+    margin-left: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.song-info h3 {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-info p {
+    color: #666;
+    font-size: 13px;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.play-btn {
+    border: none;
+    background: #1db954;
+    color: white;
+    border-radius: 50%;
+    width: 43px;
+    height: 43px;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.play-btn:active {
+    transform: scale(0.94);
+}
+
+/* ================= AUDIO ================= */
+
+audio {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* ================= BUTTONS ================= */
+
+.button-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.action-btn {
+    border: none;
+    padding: 11px 7px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.action-btn:active {
+    transform: scale(0.97);
+}
+
+.spotify-btn {
+    background: #1db954;
+}
+
+.whatsapp-btn {
+    background: #25D366;
+}
+
+.copy-btn {
+    background: #555;
+}
+
+.share-btn {
+    background: #128C7E;
+}
+
+/* ================= ADD NOTE ================= */
+
+.add-note-btn {
+    width: calc(100% - 30px);
+    margin: 0 15px 15px;
+    border: none;
+    padding: 13px;
+    border-radius: 25px;
+    background: #075e54;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-note-btn:active {
+    transform: scale(0.98);
+}
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    padding: 15px;
+    background: #fafafa;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-box input:focus {
+    border-color: #075e54;
+}
+
+.search-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #075e54;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ================= RESULTS ================= */
+
+.results {
+    padding: 15px;
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid #ddd;
+    gap: 8px;
+}
+
+.result img {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.result-info {
+    flex: 1;
+    margin-left: 3px;
+    min-width: 0;
+}
+
+.result-info h4 {
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-info p {
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select-btn {
+    background: #075e54;
+    color: white;
+    border: none;
+    padding: 8px 11px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+/* ================= MESSAGE ================= */
+
+.message {
+    text-align: center;
+    color: #777;
+    padding: 20px 10px;
+    line-height: 1.5;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 12px;
+}
+
+/* ================= TOAST ================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%) translateY(20px);
+    background: #222;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 999;
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ================= TABLET ================= */
+
+@media (min-width: 600px) {
+
+    .phone {
+        margin: 20px 0;
+        min-height: auto;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+}
+
+/* ================= DESKTOP ================= */
+
+@media (min-width: 900px) {
+
+    .phone {
+        width: 430px;
+    }
+
+}
+.invite-box {
+    margin: 15px;
+    padding: 18px;
+    background: #e8f5e9;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.invite-box h3 {
+    color: #075e54;
+    margin-bottom: 8px;
+}
+
+.invite-box p {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.invite-box button {
+    border: none;
+    background: #075e54;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.share-page-btn {
+    background: #128c7e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <!-- HEADER -->
+
+    <div class="header">
+        🎵 Music Note
+        <span>⋮</span>
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile">
+
+        <img
+            id="profileImage"
+            src="IMG_20260403_092056_739.webp"
+            alt="Profile">
+
+        <h2 id="profileName">Sugat</h2>
+
+        <p>My Music Note 🎶</p>
+
+    </div>
+
+
+    <!-- SHARED MESSAGE -->
+
+    <div id="sharedMessage"></div>
+
+
+    <!-- CURRENT MUSIC NOTE -->
+
+    <div class="note">
+
+        <div class="note-title">
+            🎶 Currently playing
+        </div>
+
+
+        <div class="song">
+
+            <img
+                id="noteImage"
+                src="https://via.placeholder.com/100?text=Music"
+                alt="Song">
+
+            <div class="song-info">
+
+                <h3 id="noteTitle">
+                    No song selected
+                </h3>
+
+                <p id="noteArtist">
+                    Search a song below
+                </p>
+
+            </div>
+
+
+            <button
+                class="play-btn"
+                id="playButton"
+                onclick="playSong()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+
+        <!-- AUDIO PLAYER -->
+
+        <audio
+            id="audioPlayer"
+            controls
+            style="display:none;">
+        </audio>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="button-row">
+
+            <button
+                class="action-btn spotify-btn"
+                onclick="openSpotify()">
+
+                🎧 Spotify
+
+            </button>
+
+
+            <button
+                class="action-btn whatsapp-btn"
+                onclick="shareWhatsApp()">
+
+                💬 WhatsApp
+
+            </button>
+
+
+            <button
+                class="action-btn copy-btn"
+                onclick="copyShareLink()">
+
+                🔗 Copy Link
+
+            </button>
+
+
+            <button
+                class="action-btn share-btn"
+                onclick="shareNative()">
+
+                📲 Share
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD MY MUSIC NOTE -->
+
+    <button
+        class="add-note-btn"
+        onclick="addMyMusicNote()">
+
+        ➕ Add My Music Note
+
+    </button>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔎 Search song name or artist...">
+
+        <button
+            class="search-btn"
+            onclick="searchSongs()">
+
+            🔎 Search Music
+
+        </button>
+
+    </div>
+
+
+    <!-- RESULTS -->
+
+    <div
+        class="results"
+        id="results">
+
+        <div class="message">
+
+            Search for a song to create your Music Note 🎵
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        🎵 Music Note<br>
+        Share your favorite song with friends
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   MUSIC NOTE APPLICATION
+===================================================== */
+
+let selectedSong = null;
+
+
+/* =====================================================
+   DEFAULT IMAGE
+===================================================== */
+
+const DEFAULT_IMAGE =
+    "https://via.placeholder.com/100?text=Music";
+
+
+/* =====================================================
+   TOAST MESSAGE
+===================================================== */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function() {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* =====================================================
+   SEARCH MUSIC
+===================================================== */
+
+async function searchSongs() {
+
+    const query =
+        document
+        .getElementById("searchInput")
+        .value
+        .trim();
+
+    const results =
+        document.getElementById("results");
+
+
+    if (query === "") {
+
+        results.innerHTML =
+            '<div class="message">' +
+            'Please enter a song name 🎵' +
+            '</div>';
+
+        return;
+    }
+
+
+    results.innerHTML =
+        '<div class="message">' +
+        '🔎 Searching music...' +
+        '</div>';
+
+
+    try {
+
+        const apiURL =
+            "https://itunes.apple.com/search?" +
+            "term=" +
+            encodeURIComponent(query) +
+            "&media=music" +
+            "&entity=song" +
+            "&limit=15";
+
+
+        const response =
+            await fetch(apiURL);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Network error"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.results ||
+            data.results.length === 0) {
+
+            results.innerHTML =
+                '<div class="message">' +
+                'No songs found 😔' +
+                '</div>';
+
+            return;
+        }
+
+
+        results.innerHTML = "";
+
+
+        data.results.forEach(song => {
+
+            const artwork =
+                song.artworkUrl100 ||
+                DEFAULT_IMAGE;
+
+
+            const title =
+                song.trackName ||
+                "Unknown Song";
+
+
+            const artist =
+                song.artistName ||
+                "Unknown Artist";
+
+
+            const preview =
+                song.previewUrl ||
+                "";
+
+
+            const spotifySearch =
+                "https://open.spotify.com/search/" +
+                encodeURIComponent(
+                    title + " " + artist
+                );
+
+
+            const div =
+                document.createElement("div");
+
+
+            div.className = "result";
+
+
+            div.innerHTML = `
+
+                <img
+                    src="${escapeHTML(artwork)}"
+                    alt="Song">
+
+                <div class="result-info">
+
+                    <h4>
+                        ${escapeHTML(title)}
+                    </h4>
+
+                    <p>
+                        ${escapeHTML(artist)}
+                    </p>
+                    
+
+                </div>
+
+                <button
+                    class="select-btn">
+
+                    Select
+
+                </button>
+
+            `;
+
+
+            div.querySelector(".select-btn")
+                .addEventListener(
+                    "click",
+                    function() {
+
+                        selectSong({
+
+                            title: title,
+
+                            artist: artist,
+
+                            image: artwork,
+
+                            preview: preview,
+
+                            spotify: spotifySearch
+
+                        });
+
+                    }
+                );
+
+
+            results.appendChild(div);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        results.innerHTML =
+            '<div class="message">' +
+            '❌ Unable to search music.' +
+            '<br><br>' +
+            'Check your internet connection.' +
+            '</div>';
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT SONG
+===================================================== */
+
+function selectSong(song) {
+
+    selectedSong = song;
+
+
+    updateMusicUI();
+
+
+    saveMyNote();
+
+
+    updateURL();
+
+
+    document
+        .getElementById("sharedMessage")
+        .innerHTML = "";
+
+
+    showToast(
+        "🎵 Music Note updated!"
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE MUSIC UI
+===================================================== */
+
+function updateMusicUI() {
+
+    if (!selectedSong) return;
+
+
+    document
+        .getElementById("noteTitle")
+        .innerText =
+        selectedSong.title;
+
+
+    document
+        .getElementById("noteArtist")
+        .innerText =
+        selectedSong.artist;
+
+
+    document
+        .getElementById("noteImage")
+        .src =
+        selectedSong.image ||
+        DEFAULT_IMAGE;
+
+
+    const audio =
+        document
+        .getElementById("audioPlayer");
+
+
+    if (selectedSong.preview) {
+
+        audio.src =
+            selectedSong.preview;
+
+        audio.style.display =
+            "block";
+
+    } else {
+
+        audio.removeAttribute("src");
+
+        audio.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAY SONG
+===================================================== */
+
+function playSong() {
+
+    if (!selectedSong) {
+
+        showToast(
+            "Please search and select a song first 🎵"
+        );
+
+        return;
+    }
+
+
+    const audio =
+        document
+        .getElementById("audioPlayer");
+
+
+    if (!selectedSong.preview) {
+
+        openSpotify();
+
+        return;
+
+    }
+
+
+    if (audio.paused) {
+
+        audio.play()
+        .then(() => {
+
+            document
+                .getElementById("playButton")
+                .innerText = "⏸";
+
+        })
+        .catch(() => {
+
+            showToast(
+                "Press ▶ on the audio player"
+            );
+
+        });
+
+    } else {
+
+        audio.pause();
+
+        document
+            .getElementById("playButton")
+            .innerText = "▶";
+
+    }
+
+}
+
+
+/* =====================================================
+   AUDIO EVENTS
+===================================================== */
+
+document
+    .getElementById("audioPlayer")
+    .addEventListener(
+        "play",
+        function() {
+
+            document
+                .getElementById("playButton")
+                .innerText = "⏸";
+
+        }
+    );
+
+
+document
+    .getElementById("audioPlayer")
+    .addEventListener(
+        "pause",
+        function() {
+
+            document
+                .getElementById("playButton")
+                .innerText = "▶";
+
+        }
+    );
+
+
+/* =====================================================
+   OPEN SPOTIFY
+===================================================== */
+
+function openSpotify() {
+
+    if (!selectedSong) {
+
+        showToast(
+            "Please select a song first 🎵"
+        );
+
+        return;
+    }
+
+
+    window.open(
+        selectedSong.spotify,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   CREATE SHARE URL
+===================================================== */
+
+function createShareURL() {
+
+    if (!selectedSong) {
+
+        return null;
+
+    }
+
+
+    /*
+       Song information is stored
+       in the URL.
+
+       Example:
+
+       music.html?title=...&artist=...
+    */
+
+
+    const baseURL =
+        window.location.href.split("?")[0];
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.set(
+        "title",
+        selectedSong.title
+    );
+
+
+    params.set(
+        "artist",
+        selectedSong.artist
+    );
+
+
+    params.set(
+        "image",
+        selectedSong.image ||
+        ""
+    );
+
+
+    params.set(
+        "preview",
+        selectedSong.preview ||
+        ""
+    );
+
+
+    params.set(
+        "spotify",
+        selectedSong.spotify ||
+        ""
+    );
+
+
+    return (
+        baseURL +
+        "?" +
+        params.toString()
+    );
+
+}
+
+
+/* =====================================================
+   WHATSAPP SHARE
+===================================================== */
+
+function shareWhatsApp() {
+
+    if (!selectedSong) {
+
+        showToast(
+            "Please select a song first 🎵"
+        );
+
+        return;
+
+    }
+
+
+    const shareURL =
+        createShareURL();
+
+
+    const message =
+        "🎵 *My Music Note*\n\n" +
+        "🎶 " +
+        selectedSong.title +
+        "\n" +
+        "👤 " +
+        selectedSong.artist +
+        "\n\n" +
+        "▶ Listen to my Music Note:\n" +
+        shareURL +
+        "\n\n" +
+        "🎵 Create your own Music Note too!";
+
+
+    const whatsappURL =
+        "https://wa.me/?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   NATIVE PHONE SHARE
+===================================================== */
+
+async function shareNative() {
+
+    if (!selectedSong) {
+
+        showToast(
+            "Please select a song first 🎵"
+        );
+
+        return;
+
+    }
+
+
+    const shareURL =
+        createShareURL();
+
+
+    const shareData = {
+
+        title:
+            "🎵 My Music Note",
+
+        text:
+            "🎶 " +
+            selectedSong.title +
+            " - " +
+            selectedSong.artist +
+            "\n\nListen to my Music Note:",
+
+        url:
+            shareURL
+
+    };
+
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share(
+                shareData
+            );
+
+        } catch (error) {
+
+            console.log(
+                "Share cancelled"
+            );
+
+        }
+
+    } else {
+
+        copyShareLink();
+
+    }
+
+}
+
+
+/* =====================================================
+   COPY SHARE LINK
+===================================================== */
+
+async function copyShareLink() {
+
+    if (!selectedSong) {
+
+        showToast(
+            "Please select a song first 🎵"
+        );
+
+        return;
+
+    }
+
+
+    const shareURL =
+        createShareURL();
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            shareURL
+        );
+
+
+        showToast(
+            "🔗 Music Note link copied!"
+        );
+
+
+    } catch (error) {
+
+        prompt(
+            "Copy this Music Note link:",
+            shareURL
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE BROWSER URL
+===================================================== */
+
+function updateURL() {
+
+    const shareURL =
+        createShareURL();
+
+
+    if (!shareURL) return;
+
+
+    window.history.replaceState(
+        {},
+        "",
+        shareURL
+    );
+
+}
+
+
+/* =====================================================
+   LOAD SHARED MUSIC NOTE
+===================================================== */
+
+function loadSharedSong() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const title =
+        params.get("title");
+
+
+    const artist =
+        params.get("artist");
+
+
+    const image =
+        params.get("image");
+
+
+    const preview =
+        params.get("preview");
+
+
+    const spotify =
+        params.get("spotify");
+
+
+    if (!title || !artist) {
+
+        return false;
+
+    }
+
+
+    selectedSong = {
+
+        title:
+            title,
+
+        artist:
+            artist,
+
+        image:
+            image ||
+            DEFAULT_IMAGE,
+
+        preview:
+            preview ||
+            "",
+
+        spotify:
+            spotify ||
+            (
+                "https://open.spotify.com/search/" +
+                encodeURIComponent(
+                    title + " " + artist
+                )
+            )
+
+    };
+
+
+    updateMusicUI();
+
+
+    document
+        .getElementById("sharedMessage")
+        .innerHTML = `
+
+            <div class="shared">
+
+                🎵 This Music Note was
+                shared with you.<br>
+
+                🎶 ${escapeHTML(title)}
+                — ${escapeHTML(artist)}<br>
+
+                Tap ▶ to listen or create
+                your own note below.
+
+            </div>
+
+        `;
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   ADD MY MUSIC NOTE
+===================================================== */
+
+function addMyMusicNote() {
+
+    /*
+       Remove the shared-song URL
+       and allow the visitor to
+       create their own note.
+    */
+
+
+    selectedSong = null;
+
+
+    document
+        .getElementById("noteTitle")
+        .innerText =
+        "No song selected";
+
+
+    document
+        .getElementById("noteArtist")
+        .innerText =
+        "Search a song below";
+
+
+    document
+        .getElementById("noteImage")
+        .src =
+        DEFAULT_IMAGE;
+
+
+    const audio =
+        document
+        .getElementById("audioPlayer");
+
+
+    audio.pause();
+
+    audio.removeAttribute("src");
+
+    audio.style.display =
+        "none";
+
+
+    document
+        .getElementById("sharedMessage")
+        .innerHTML =
+        "";
+
+
+    const cleanURL =
+        window.location.href.split("?")[0];
+
+
+    window.history.replaceState(
+        {},
+        "",
+        cleanURL
+    );
+
+
+    document
+        .getElementById("searchInput")
+        .focus();
+
+
+    showToast(
+        "➕ Choose a song for your Music Note"
+    );
+
+}
+
+
+/* =====================================================
+   SAVE NOTE TO LOCAL STORAGE
+===================================================== */
+
+function saveMyNote() {
+
+    if (!selectedSong) return;
+
+
+    try {
+
+        localStorage.setItem(
+            "myMusicNote",
+            JSON.stringify(
+                selectedSong
+            )
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Local storage unavailable"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD SAVED NOTE
+===================================================== */
+
+function loadSavedNote() {
+
+    /*
+       Only use saved note when
+       there is no shared song URL.
+    */
+
+    if (window.location.search) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "myMusicNote"
+            );
+
+
+        if (!saved) return;
+
+
+        const song =
+            JSON.parse(saved);
+
+
+        if (!song.title ||
+            !song.artist) {
+
+            return;
+
+        }
+
+
+        selectedSong = song;
+
+        updateMusicUI();
+
+
+    } catch (error) {
+
+        console.log(
+            "Could not load saved note"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   ENTER KEY SEARCH
+===================================================== */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                searchSongs();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   PAGE START
+===================================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const shared =
+            loadSharedSong();
+
+
+        if (!shared) {
+
+            loadSavedNote();
+
+        }
+
+    }
+);
+/* =====================================================
+   SHARE MUSIC NOTE PAGE
+===================================================== */
+
+async function sharePage() {
+
+    const pageURL = window.location.href;
+
+    const shareText =
+        "🎵 Check out my Music Note!\n\n" +
+        "Listen to my song and create your own Music Note 🎶";
+
+    /* Mobile/tablet native share */
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share({
+                title: "🎵 My Music Note",
+                text: shareText,
+                url: pageURL
+            });
+
+        } catch (error) {
+
+            console.log("Share cancelled.");
+
+        }
+
+    }
+
+    /* Desktop fallback */
+    else {
+
+        try {
+
+            await navigator.clipboard.writeText(pageURL);
+
+            alert(
+                "🔗 Music Note page link copied!\n\n" +
+                "Send this link to your friends."
+            );
+
+        } catch (error) {
+
+            prompt(
+                "Copy and send this Music Note page link:",
+                pageURL
+            );
+
+        }
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
